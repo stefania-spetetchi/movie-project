@@ -2,13 +2,13 @@ import axios from "axios";
 import { FETCH_MOVIES, FETCH_MOVIE, AUTH_USER, AUTH_ERROR, ADD_MOVIE, FETCH_WATCHLIST_MOVIES } from './types';
 
 export const fetchMovies = (page = 1) => dispatch => {
-  axios.get(`https://api.themoviedb.org/3/discover/movie?api_key=a50dd974dc6bceb5358b37229983facc&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=${page}`
+  axios.get(`https://api.themoviedb.org/3/discover/movie?api_key=${process.env.REACT_APP_MOVIE_DB_KEY}&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=${page}`
   ).then(function (response) {
     dispatch({ type: FETCH_MOVIES, payload: response.data });
   })
-  .catch(function (error) {
-    console.log(error);
-  });
+    .catch(function (error) {
+      console.log(error);
+    });
 };
 
 export const fetchMovie = (id) => dispatch => {
@@ -16,9 +16,9 @@ export const fetchMovie = (id) => dispatch => {
   ).then(function (response) {
     dispatch({ type: FETCH_MOVIE, payload: response.data });
   })
-  .catch(function (error) {
-    console.log(error);
-  });
+    .catch(function (error) {
+      console.log(error);
+    });
 };
 
 export const signup = (formProps, callback) => dispatch => {
@@ -30,9 +30,9 @@ export const signup = (formProps, callback) => dispatch => {
     localStorage.setItem('token', response.data.token);
     callback();
   })
-  .catch(function (error) {
-    dispatch({ type: AUTH_ERROR, payload: error });
-  });
+    .catch(function (error) {
+      dispatch({ type: AUTH_ERROR, payload: error });
+    });
 };
 
 export const signin = (formProps, callback) => dispatch => {
@@ -45,9 +45,9 @@ export const signin = (formProps, callback) => dispatch => {
     localStorage.setItem('token', response.data.token);
     callback();
   })
-  .catch(function (error) {
-    dispatch({ type: AUTH_ERROR, payload: error });
-  });
+    .catch(function (error) {
+      dispatch({ type: AUTH_ERROR, payload: error });
+    });
 };
 
 export const fetchUser = () => dispatch => {
@@ -64,9 +64,9 @@ export const fetchUser = () => dispatch => {
     dispatch({ type: AUTH_USER, payload: response.data });
     localStorage.setItem('token', response.data.token);
   })
-  .catch(function (error) {
-    console.log(error);
-  });
+    .catch(function (error) {
+      console.log(error);
+    });
 };
 
 export const signout = (callback) => dispatch => {
@@ -78,7 +78,7 @@ export const signout = (callback) => dispatch => {
 
 export const addMovieToWatchList = (movie) => dispatch => {
   console.log(movie);
-  
+
   const config = {
     headers: {
       Authorization: 'Bearer ' + localStorage.getItem('token'),
@@ -92,9 +92,9 @@ export const addMovieToWatchList = (movie) => dispatch => {
   ).then(function (response) {
     dispatch({ type: ADD_MOVIE, payload: response.data });
   })
-  .catch(function (error) {
-    console.log(error);
-  });
+    .catch(function (error) {
+      console.log(error);
+    });
 };
 
 export const fetchWatchListMovies = () => dispatch => {
@@ -110,7 +110,7 @@ export const fetchWatchListMovies = () => dispatch => {
   ).then(function (response) {
     dispatch({ type: FETCH_WATCHLIST_MOVIES, payload: response.data });
   })
-  .catch(function (error) {
-    console.log(error);
-  });
+    .catch(function (error) {
+      console.log(error);
+    });
 };
